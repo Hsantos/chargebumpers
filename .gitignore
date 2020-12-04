@@ -10,6 +10,15 @@
 /[Ll]ogs/
 /[Mm]emoryCaptures/
 
+ChargeBumpers/[Ll]ibrary/
+ChargeBumpers/[Tt]emp/
+ChargeBumpers/[Oo]bj/
+ChargeBumpers/[Bb]uild/
+ChargeBumpers/[Bb]uilds/
+ChargeBumpers/[Ll]ogs/
+ChargeBumpers/[Mm]emoryCaptures/
+
+
 # Asset meta data should only be ignored when the corresponding asset is also ignored
 !/[Aa]ssets/**/*.meta
 
