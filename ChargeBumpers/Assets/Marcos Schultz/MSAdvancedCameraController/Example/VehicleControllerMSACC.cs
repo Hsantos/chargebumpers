@@ -16,7 +16,7 @@ public class VehicleControllerMSACC : MonoBehaviour {
 	public WheelCollider leftRearWheelCollider;
 	public Transform leftRearWheelMesh;
 	[Space(30)][Range(0.2f,1.5f)]
-	public float torqueForceWheel = 1.0f;
+	public float torqueForceWheel = 50.0f;
 	public Transform centerOfMass;
 
 	Rigidbody rb;
@@ -77,6 +77,7 @@ public class VehicleControllerMSACC : MonoBehaviour {
 			ApplyTorque (motorTorque);
 			ApplyBrakes (brakeTorque);
 		}
+		
 	}
 
 	void FixedUpdate(){
@@ -89,6 +90,7 @@ public class VehicleControllerMSACC : MonoBehaviour {
 			Vector3 vel = new Vector3 (rb.angularVelocity.x, 0.0f, rb.angularVelocity.z);
 			rb.angularVelocity = Vector3.Lerp (rb.angularVelocity, vel, Time.deltaTime * 2.0f);
 		}
+		
 	}
 
 	void MeshUpdate(){
@@ -120,10 +122,10 @@ public class VehicleControllerMSACC : MonoBehaviour {
 	}
 
 	void StabilizeVehicle(){
-		float forceFrontLeft = 1.0f;
-		float forceFrontRight = 1.0f;
-		float forceReadLeft = 1.0f;
-		float forceReadRight = 1.0f;
+		float forceFrontLeft = 10.0f;
+		float forceFrontRight = 10.0f;
+		float forceReadLeft = 10.0f;
+		float forceReadRight = 10.0f;
 		WheelHit hit;
 		bool isGround1 = leftRearWheelCollider.GetGroundHit(out hit);
 		if (isGround1) {
