@@ -1,9 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
 [RequireComponent(typeof(Rigidbody))]
-public class CarBehaviour : MonoBehaviour {
+public class CarBehaviour : MonoBehaviourPun
+{
 
 	[SerializeField]
 	private CustomCarBalance carBalance;
@@ -40,7 +42,14 @@ public class CarBehaviour : MonoBehaviour {
 	private float inputHorizontal;
 	private float inputVertical;
 
-	void Start () {
+	private void Start () 
+	{
+		//safeguard
+		if (!photonView.IsMine)
+		{
+			Destroy(GetComponent<CarBehaviour>());
+		}
+
 		rb = GetComponent<Rigidbody> ();
 		if (rb.mass < 1000.0f) {
 			rb.mass = 1000.0f;
@@ -56,6 +65,7 @@ public class CarBehaviour : MonoBehaviour {
 			WheelCollider ColisoresDasRodas = GetComponentInChildren<WheelCollider>();
 			ColisoresDasRodas.ConfigureVehicleSubsteps(1000.0f, 20, 20);
 		}
+
 	}
 
 	private void Update ()
