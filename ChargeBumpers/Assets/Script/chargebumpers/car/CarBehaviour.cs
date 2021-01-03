@@ -45,7 +45,7 @@ public class CarBehaviour : MonoBehaviourPun
 	private void Start () 
 	{
 		//safeguard
-		if (!photonView.IsMine)
+		if (photonView != null && !photonView.IsMine)
 		{
 			Destroy(GetComponent<CarBehaviour>());
 		}
@@ -202,5 +202,28 @@ public class CarBehaviour : MonoBehaviourPun
 		leftFrontWheelCollider.brakeTorque = brakeForce;
 		rightRearWheelCollider.brakeTorque = brakeForce;
 		leftRearWheelCollider.brakeTorque = brakeForce;
+	}
+
+	public void Respawn(Vector3 position, Quaternion rotation, float penaltyTime)
+    {
+		rb.collisionDetectionMode = CollisionDetectionMode.ContinuousSpeculative;
+		rb.isKinematic = true;
+		rb.velocity = Vector3.zero;
+		rb.angularVelocity = Vector3.zero;
+
+		brakeTorque = float.MaxValue;
+		motorTorque = 0.0f;
+		ApplyBrakes(brakeTorque);
+		ApplyTorque(motorTorque);
+
+		transform.SetPositionAndRotation(position, rotation);
+
+		IEnumerator penaltyTimer()
+        {
+			yield return new WaitForSeconds(penaltyTime);
+			rb.isKinematic = false;
+			rb.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
+		}
+		StartCoroutine(penaltyTimer());
 	}
 }

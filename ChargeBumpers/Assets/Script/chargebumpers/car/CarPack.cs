@@ -5,7 +5,7 @@ public class CarPack : MonoBehaviourPun
     void Start()
     {
         //safeguard
-        if (!photonView.IsMine)
+        if (photonView != null && !photonView.IsMine)
         {
             Destroy(GetComponent<CarPack>());
         }
